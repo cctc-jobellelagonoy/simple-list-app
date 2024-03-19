@@ -45,26 +45,31 @@ const SpaceXLaunches = ({filter}) => {
       />
       
 
-        <InfiniteScroll
-            className="scroll"
-            dataLength={data.length}
-            next={fetchData}
-            hasMore={hasMore}
-            endMessage={
-                <p style={{ textAlign: 'center' }}>
-                    <b>No more data to fetch</b>
-                </p>
-            }
-        >
-            {data.filter(launch => 
-                (launch.name.toLowerCase().includes(search.toLowerCase()) || 
-                (launch.details && launch.details.toLowerCase().includes(search.toLowerCase())))
-                ).map((launch, index) => (
-                <div key={index}>
-                    <ListItem item={launch} />
-                </div>
-            ))}
-        </InfiniteScroll>
+        {
+          data.length > 0 ?
+          <InfiniteScroll
+              className="scroll"
+              dataLength={data.length}
+              next={fetchData}
+              hasMore={hasMore}
+              endMessage={
+                  <p style={{ textAlign: 'center' }}>
+                      <b>No more data to fetch</b>
+                  </p>
+              }
+          >
+              {data.filter(launch => 
+                  (launch.name.toLowerCase().includes(search.toLowerCase()) || 
+                  (launch.details && launch.details.toLowerCase().includes(search.toLowerCase())))
+                  ).map((launch, index) => (
+                  <div key={index}>
+                      <ListItem item={launch} />
+                  </div>
+              ))}
+          </InfiniteScroll>
+          :
+          null
+        }
 
         <div>
             {hasMore && loading && <Spinner/>}
