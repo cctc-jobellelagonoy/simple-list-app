@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  list-app:
+    build: ./Frontend/list-app
+    ports:
+      - '3000:3000'
+    volumes:
+      - './Frontend/list-app:/app'
+      - '/app/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
